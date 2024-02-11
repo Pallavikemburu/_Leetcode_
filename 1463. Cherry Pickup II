@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int fun(int i,int j,int p,int q,int r,int c,vector<vector<int>>& a,vector<vector<vector<int>>>&dp)
+    {
+        if(j==q)
+        {
+           // cout<<i<<" "<<j<<" "<<p<<" "<<q<<endl;
+            return 0;
+        }
+        if(i<0 || j<0 || i>=r || j>=c )
+        {
+          //  cout<<"hee";
+            return 0;
+        }
+        if(p<0 || q<0 || p>=r || q>=c)
+        {
+           // cout<<"huu";
+            return 0;
+        }
+        if(dp[i][j][q]!=-1 ) return dp[i][j][q];
+        //cout<<"hi";
+        int ans=0;
+        int p1=fun(i+1,j-1,p+1,q-1,r,c,a,dp)+a[i][j]+a[p][q];
+        ans=max(ans,p1);
+        int p2=fun(i+1,j-1,p+1,q,r,c,a,dp)+a[i][j]+a[p][q];
+        ans=max(ans,p2);
+        int p3=fun(i+1,j-1,p+1,q+1,r,c,a,dp)+a[i][j]+a[p][q];
+        ans=max(ans,p3);
+        int p4=fun(i+1,j,p+1,q-1,r,c,a,dp)+a[i][j]+a[p][q];
+        ans=max(ans,p4);
+        int p5=fun(i+1,j,p+1,q,r,c,a,dp)+a[i][j]+a[p][q];
+        ans=max(ans,p5);
+        int p6=fun(i+1,j,p+1,q+1,r,c,a,dp)+a[i][j]+a[p][q];
+        ans=max(ans,p6);
+        int p7=fun(i+1,j+1,p+1,q-1,r,c,a,dp)+a[i][j]+a[p][q];
+        ans=max(ans,p7);
+        int p8=fun(i+1,j+1,p+1,q,r,c,a,dp)+a[i][j]+a[p][q];
+        ans=max(ans,p8);
+        int p9=fun(i+1,j+1,p+1,q+1,r,c,a,dp)+a[i][j]+a[p][q];
+        ans=max(ans,p9);
+        return dp[i][j][q]=ans;
+
+    }
+    int cherryPickup(vector<vector<int>>& a) {
+        int r=a.size(),c=a[0].size();
+       // vector<vector<int>>dp1(r,vector<int>(c,-1));
+      //  vector<vector<int>>dp2(r,vecto9r<int>(c,-1));
+        vector<vector<vector<int>>>dp(r,vector<vector<int>>(c,vector<int>(c,-1)));
+        //int s1=0,s2=0;
+        return fun(0,0,0,c-1,r,c,a,dp);
+    }
+    
+};
